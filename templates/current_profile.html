@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row align-items-start">
+    <div class="col-md-4 text-center my-auto">
+        <img src="/static/{{ userinfo['pfp'] }}" class="img-thumbnail rounded-circle shadow" style="max-width: 200px;"
+             alt="Profile Picture">
+    </div>
+
+    <div class="col-md-8">
+        <h2 class="mb-4">{{ current_user.username }}</h2>
+        <table class="table table-bordered shadow-sm">
+            <tbody>
+            <tr>
+                <th scope="row">Gender</th>
+                <td>{{ current_user.gender }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Country</th>
+                <td>{{ current_user.country }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Birthday</th>
+                <td>{{ current_user.birthday }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="mt-4 d-flex gap-3">
+            <a href="/edit_user/{{ userinfo['id'] }}" class="btn btn-outline-warning">
+                <i class="bi bi-pencil-square"></i> Edit Profile
+            </a>
+            <a href="/delete_user/{{ userinfo['id'] }}" class="btn btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete Profile
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<div class="mt-5">
+    <h3>User's Posts</h3>
+    {% if posts %}
+    <div class="list-group">
+        {% for post in posts %}
+        <a href="/thread/{{ post.threadID }}/post/{{ post.postID }}" class="list-group-item list-group-item-action">
+            <h5>{{ post.title }}</h5>
+            <p>{{ post.text[:100] }}...</p>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No posts available.</p>
+    {% endif %}
+</div>
+
+
+<div class="mt-5">
+    <h3>User's Comments</h3>
+    {% if comments %}
+    <div class="list-group">
+        {% for comment in comments %}
+        <a href="/thread/{{ comment.threadID }}/post/{{ comment.postID }}#comment-{{ comment.commentID }}"
+           class="list-group-item list-group-item-action">
+            <p>{{ comment.text[:100] }}...</p>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No comments available.</p>
+    {% endif %}
+</div>
+
+
+<div class="mt-5">
+    <h3>User's Threads</h3>
+    {% if threads %}
+    <div class="list-group">
+        {% for thread in threads %}
+        <a href="/thread/{{ thread.threadID }}" class="list-group-item list-group-item-action">
+            <h5>{{ thread.title }}</h5>
+            <p>{{ thread.description[:100] }}...</p>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No threads available.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

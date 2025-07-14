@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4 text-light">Search Results for "{{ query }}"</h1>
+
+    <div class="mb-4">
+        <h3 class="text-light">Threads</h3>
+        {% if threads %}
+        <div class="list-group">
+            {% for thread in threads %}
+            <div class="list-group-item bg-dark text-white rounded shadow-sm mb-2">
+                <a href="/thread/{{ thread.threadID }}" class="text-reset text-decoration-none">
+                    <h5>{{ thread.title }}</h5>
+                    <p>{{ thread.description[:100] if thread.description else "No description available." }}</p>
+                </a>
+            </div>
+
+            {% for post in posts %}
+            {% if post.threadID == thread.threadID %}
+            <div class="ms-4 mb-3">
+                <a href="/thread/{{ post.threadID }}/post/{{ post.postID }}"
+                   class="list-group-item list-group-item-action bg-dark text-light rounded shadow-sm">
+                    <h6>{{ post.title }}</h6>
+                    <p>{{ post.text[:100] }}...</p>
+                </a>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-light">No threads found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

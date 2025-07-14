@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4" style="font-weight: 800;">USER LIST:</h1>
+
+    <form method="GET" action="/userlist" class="mb-4 d-flex justify-content-center">
+        <input type="text" name="search" class="form-control w-50" placeholder="Search by username or ID (e.g., #123)"
+               value="{{ request.args.get('search') }}">
+        <button type="submit" class="btn btn-outline-light ms-2">Search</button>
+    </form>
+
+    <div class="row">
+        {% for user in users %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-black bg-secondary">
+                <img src="/static/{{ user.pfp }}" class="card-img-top rounded-circle mx-auto mt-3"
+                     alt="{{ user.username }}'s Profile Picture"
+                     style="width: 150px; height: 150px; object-fit: cover;">
+                <div class="card-body text-center bg-secondary">
+                    <h5 class="card-title text-white">{{ user.username }}</h5>
+                    <p class="card-text">Click below to visit {{ user.username }}'s profile.</p>
+                    <a href="/profile/{{ user.id }}" class="btn btn-outline-light w-100">Go to Profile</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
