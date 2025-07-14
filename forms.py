@@ -102,7 +102,7 @@ class FeedbackForm(FlaskForm):
                                         validators=[
                                             DataRequired(message="You must enter a description for the feedback")])
 
-    Images = FileField("Upload images and videos to recreate the bug", validators=[FileSize(5 * 1024 * 1024),
+    Images = FileField("Upload images and videos to recreate the bug", validators=[FileSize(1024 * 1024 * 1024),
                                                                                    FileAllowed(["jpg", "png", "jpeg"])])
 
     Notes = StringField("Optional notes")
