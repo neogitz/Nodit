@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for errors in form.errors.values() %}
+{% for error in errors %}
+<div class="alert alert-warning">
+    * {{ error }}
+</div>
+{% endfor %}
+{% endfor %}
+
+
+<form method="POST" enctype="multipart/form-data">
+
+    <div class="d-flex w-50 flex-column mx-auto">
+
+        {{ form.hidden_tag() }}
+
+        <h5>{{ form.threadname.label }}</h5>
+        {{ form.threadname(class="form-control mb-2", placeholder="Enter title...") }}
+
+        <h5>{{ form.description.label }}</h5>
+        {{ form.description(class="form-control mb-2", placeholder="Enter description...") }}
+
+        <h5>{{ form.img.label }}</h5>
+        {{ form.img(class="form-control") }}
+
+        {{ form.submit(class="mt-5 btn btn-outline-light") }}
+
+    </div>
+
+</form>
+
+{% endblock %}

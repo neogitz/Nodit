@@ -1,0 +1,37 @@
+
+.btn-violet {
+    background-color: #7F00FF;
+    color: black;
+    border: 1px solid #7F00FF;
+}
+
+.btn-violet:hover,
+.btn-violet:focus {
+    background-color: #7F00FF;
+    color: black !important;
+    border-color: #7F00FF;
+}
+
+
+.btn-outline-violet {
+    color: #7F00FF;
+    border: 1px solid #7F00FF;
+    background-color: transparent;
+}
+
+.btn-outline-violet:hover,
+.btn-outline-violet:focus {
+    background-color: #7F00FF;
+    color: white;
+    border-color: #7F00FF;
+}
+
+
+.text-violet {
+    color: #7F00FF;
+}
+
+
+#bugFields, #feedbackFields {
+    transition: all 0.2s ease;
+}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center mt-2">
+
+    <div class="text-center my-4">
+        <img src="/static/nodit.png"
+             alt="Nodit Logo"
+             class="img-fluid shadow rounded-circle"
+             style="max-width: 160px; background-color: #1a1a1a; padding: 10px;">
+    </div>
+
+
+    {% if trending_threads %}
+    <h2 class="text-light mb-4">🔥 Trending Discussions</h2>
+    <div class="list-group mb-5">
+        {% for thread in trending_threads %}
+        <a href="/thread/{{ thread.threadID }}"
+           class="list-group-item list-group-item-action bg-dark text-white border-light rounded mb-3 shadow-sm text-start">
+            <h5 class="mb-1 fw-semibold">{{ thread.title }}</h5>
+            <p class="mb-1 small text-light">{{ thread.description[:100] if thread.description else "No description
+                available." }}</p>
+            <small class="text-muted">Created by {{ thread.creator.username }} on {{ thread.date.strftime('%b %d, %Y')
+                }}</small>
+        </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <h3 class="text-light mb-4">💡 How Nodit Works</h3>
+    <div class="row text-center mb-5">
+        <div class="col-md-4">
+            <i class="bi bi-person-plus fs-1 text-white"></i>
+            <h5 class="text-white mt-2">Sign Up</h5>
+            <p class="text-white">Create an account to join thoughtful discussions.</p>
+        </div>
+        <div class="col-md-4">
+            <i class="bi bi-chat-dots fs-1 text-white"></i>
+            <h5 class="text-white mt-2">Engage</h5>
+            <p class="text-white">Post threads, reply, and comment with ease.</p>
+        </div>
+        <div class="col-md-4">
+            <i class="bi bi-hand-thumbs-up fs-1 text-white"></i>
+            <h5 class="text-white mt-2">Nod</h5>
+            <p class="text-white">Nod content you like to show appreciation.</p>
+        </div>
+    </div>
+
+
+    {% if current_user.role == "Admin" %}
+    <div class="mt-5">
+        <a class="btn btn-outline-light border-2 px-4 py-2 rounded-pill shadow-sm" href="/create_thread">
+            <h5 class="m-0">[ADMIN] Create Thread</h5>
+        </a>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
