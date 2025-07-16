@@ -16,17 +16,6 @@
                 </a>
             </div>
 
-            {% for post in posts %}
-            {% if post.threadID == thread.threadID %}
-            <div class="ms-4 mb-3">
-                <a href="/thread/{{ post.threadID }}/post/{{ post.postID }}"
-                   class="list-group-item list-group-item-action bg-dark text-light rounded shadow-sm">
-                    <h6>{{ post.title }}</h6>
-                    <p>{{ post.text[:100] }}...</p>
-                </a>
-            </div>
-            {% endif %}
-            {% endfor %}
             {% endfor %}
         </div>
         {% else %}
