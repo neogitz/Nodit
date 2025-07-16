@@ -28,8 +28,10 @@
                     </a>
                     <ul class="dropdown-menu bg-dark">
                         <li><a class="dropdown-item text-white" href="/userlist">User List</a></li>
+                        {% if current_user.role == "Admin" %}
                         <li><a class="dropdown-item text-white" href="#">Another Action</a></li>
                         <li><a class="dropdown-item text-white" href="#">Something Else Here</a></li>
+                        {% endif %}
                     </ul>
                 </li>
             </ul>
