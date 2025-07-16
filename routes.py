@@ -177,7 +177,7 @@ def create_post(thread_id):
             text=form.text.data,
             img=filename,
             threadID=thread_id,
-            userID=current_user.id,
+            creatorID=current_user.id,
             date=date.today()
         )
         db.session.add(new_post)
