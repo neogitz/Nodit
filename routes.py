@@ -174,6 +174,7 @@ def create_post(thread_id):
             form.img.data.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
 
         new_post = Post(
+            title=form.postTitle.data,
             text=form.text.data,
             img=filename,
             threadID=thread_id,
