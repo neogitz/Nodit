@@ -120,6 +120,7 @@ def userprofile(user_id):
     posts = user.posts
     threads = user.threads
     comments = user.comments
+    pfp = user.pfp
     return render_template("profile.html", userinfo=user, posts=posts, threads=threads, comments=comments)
 
 
