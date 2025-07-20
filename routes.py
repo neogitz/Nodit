@@ -193,6 +193,7 @@ def create_post(thread_id):
 @login_required
 def create_comment(thread_id, post_id):
     form = PostCommentForm()
+    post = Post.query.all()
     if form.validate_on_submit():
         filename = None
         if form.img.data:
