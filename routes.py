@@ -211,7 +211,7 @@ def create_comment(thread_id, post_id):
         db.session.add(new_comment)
         db.session.commit()
         return redirect(url_for("view_post", thread_id=thread_id, post_id=post_id))
-    return render_template("comment_post.html", form=form)
+    return render_template("create_comment.html", form=form)
 
 
 @app.route("/thread/<int:thread_id>")
