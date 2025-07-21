@@ -10,20 +10,21 @@
 {% endfor %}
 {% endfor %}
 
-    <div class="comment-form mt-4">
-        {% if current_user.is_authenticated %}
-        <h5 class="text-light">Add a Comment</h5>
-        <form method="POST" action="/thread/{{ post.threadID }}/post/{{ post.postID }}/comment"
+<div class="comment-form mt-4">
+   {% if current_user.is_authenticated %}
+   <h5 class="text-light">Add a Comment</h5>
+   <div class="d-flex w-50 flex-column mx-auto">
+      <form method="POST" action="/thread/{{ post.threadID }}/post/{{ post.postID }}/comment"
               enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-            <div class="mb-3">
-                {{ form.text(class="form-control", placeholder="Write your comment here...") }}
-            </div>
-            <div class="mb-3">
-                {{ form.img(class="form-control", placeholder="Upload image content...") }}
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Post Comment</button>
-        </form>
+         {{ form.hidden_tag() }}
+         <div class="mb-3">
+            {{ form.text(class="form-control", placeholder="Write your comment here...") }}
+         </div>
+         <div class="mb-3">
+            {{ form.img(class="form-control", placeholder="Upload image content...") }}
+         </div>
+      <button type="submit" class="btn btn-primary w-100">Post Comment</button>
+      </form>
         {% else %}
         <p class="text-center text-light">You must be logged in to comment.</p>
         {% endif %}
