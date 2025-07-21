@@ -18,12 +18,12 @@
          {{ form.hidden_tag() }}
 
          <h5> {{ form.text.label }} </h5>
-         {{ form.text(class="form-control", placeholder="Write your comment here...") }}
+         {{ form.text(class="form-control mb-2", placeholder="Write your comment here...") }}
 
          <h5> {{ form.img.label }} </h5>
          {{ form.img(class="form-control", placeholder="Upload image content...") }}
 
-         {{ form.submit(class="btn btn-primary w-100") }}
+         {{ form.submit(class="btn btn-primary w-100 mt-5") }}
       </form>
    {% else %}
         <p class="text-center text-light">You must be logged in to comment.</p>
