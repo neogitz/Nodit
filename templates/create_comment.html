@@ -17,13 +17,11 @@
       <form method="POST" action="/thread/{{ post.threadID }}/post/{{ post.postID }}/comment"
               enctype="multipart/form-data">
          {{ form.hidden_tag() }}
-         <div class="mb-3">
-            {{ form.text(class="form-control", placeholder="Write your comment here...") }}
-         </div>
-         <div class="mb-3">
-            {{ form.img(class="form-control", placeholder="Upload image content...") }}
-         </div>
-      <button type="submit" class="btn btn-primary w-100">Post Comment</button>
+
+         {{ form.text.label()
+         {{ form.text(class="form-control", placeholder="Write your comment here...") }}
+         
+         {{ form.img(class="form-control", placeholder="Upload image content...") }}
       </form>
         {% else %}
         <p class="text-center text-light">You must be logged in to comment.</p>
