@@ -16,35 +16,35 @@
 
     <div class="mb-3">
         {{ form.FeedbackTitle.label(class="form-label") }}
-        {{ form.FeedbackTitle(class="form-control text-secondary") }}
+        {{ form.FeedbackTitle(class="form-control", placeholder="Enter title...") }}
     </div>
 
     <div class="mb-3">
         {{ form.FeedbackType.label(class="form-label") }}
-        {{ form.FeedbackType(class="form-select text-secondary", id="feedbackType") }}
+        {{ form.FeedbackType(class="form-select", id="feedbackType", placeholder="Pick a feedback type...") }}
     </div>
 
     <div id="bugFields" style="display: none;">
         <div class="mb-3">
             {{ form.BugDescription.label(class="form-label") }}
-            {{ form.BugDescription(class="form-control text-secondary") }}
+            {{ form.BugDescription(class="form-control", placeholder="Type the bug description...") }}
         </div>
         <div class="mb-3">
             {{ form.Images.label(class="form-label") }}
-            {{ form.Images(class="form-control text-secondary") }}
+            {{ form.Images(class="form-control", placeholder="Upload images and/or videos") }}
         </div>
     </div>
 
     <div id="feedbackFields" style="display: none;">
         <div class="mb-3">
             {{ form.FeedbackDescription.label(class="form-label") }}
-            {{ form.FeedbackDescription(class="form-control text-secondary") }}
+            {{ form.FeedbackDescription(class="form-control", placeholder="Enter feedback description...") }}
         </div>
     </div>
 
     <div class="mb-3">
         {{ form.Notes.label(class="form-label") }}
-        {{ form.Notes(class="form-control text-secondary") }}
+        {{ form.Notes(class="form-control", placeholder="Leave a note... (optional)") }}
     </div>
 
     <button type="submit" class="btn btn-primary">{{ form.submit.label.text }}</button>
