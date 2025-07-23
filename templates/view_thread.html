@@ -27,9 +27,10 @@
 {% for post in thread.posts %}
 <div class="mb-4 p-3 border rounded bg-dark text-light">
      <div class="d-flex justify-content-between align-items-center mb-2">
-          <a href="/profile/{{ comment.commenter.id }}" class="text-reset text-decoration-none">
+          <a href="/profile/{{ post.creator.id }}" class="text-reset text-decoration-none">
                <strong>{{ post.creator.username }}</strong>
           </a>
+
           <small class="text-muted">{{ post.date.strftime('%b %d, %Y') }}</small>
      </div>      
     <p class="fw-bold fs-5"><a href="{{ url_for('view_post', thread_id=post.threadID, post_id=post.postID) }}"
