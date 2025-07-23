@@ -223,6 +223,7 @@ def create_comment(thread_id, post_id):
 def view_thread(thread_id):
     thread = Thread.query.get_or_404(thread_id)
     posts = Post.query.filter_by(threadID=thread_id).order_by(Post.date.desc()).all()
+    comments = Comment.query.filter_by(threadID=thread_id).order_by(Comment.date.asc()).all()
     return render_template("view_thread.html", thread=thread, posts=posts)
 
 
