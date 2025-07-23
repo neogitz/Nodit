@@ -193,13 +193,15 @@ def create_post(thread_id):
 @login_required
 def create_comment(thread_id, post_id):
     form = PostCommentForm()
-    post = Post.query.all()
+    post = Post.query.filter_by(postID=post_id, threadID=thread_id).first_or_404()
+
     if form.validate_on_submit():
         filename = None
         if form.img.data:
             ext = os.path.splitext(secure_filename(form.img.data.filename))[1]
             filename = f"{uuid.uuid4().hex}{ext}"
-            form.img.data.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+            filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+            form.img.data.save(filepath)
 
         new_comment = Comment(
             text=form.text.data,
@@ -212,7 +214,9 @@ def create_comment(thread_id, post_id):
         db.session.add(new_comment)
         db.session.commit()
         return redirect(url_for("view_post", thread_id=thread_id, post_id=post_id))
+
     return render_template("create_comment.html", form=form, post=post)
+
 
 
 @app.route("/thread/<int:thread_id>")
