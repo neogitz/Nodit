@@ -13,6 +13,11 @@
      style="max-height: 300px;" alt="Thread Image">
 {% endif %}
 
+{% if current_user.role == 'Admin' or current_user.id == thread.creatorID %}
+<form method="POST" action="/thread/{{ thread.threadID }}/delete" class="mb-3">
+    <button class="btn btn-outline-danger btn-sm">Delete Thread</button>
+</form>
+{% endif %}
 
 <a class="btn btn-outline-light mb-4" href="/thread/{{ thread.threadID }}/create_post">Add a Post</a>
 
@@ -44,7 +49,7 @@
     <p class="text-light mt-2">{{ post.nods | length }} Nods</p>
 
     <ul class="mb-2 ps-0" style="list-style: none;">
-        {% if current_user.role == 'Admin' %}
+        {% if current_user.role == 'Admin' or current_user.id == thread.creatorID or current_user.id == post.creatorID %}
         <li>
             <form method="POST" action="/post/{{ post.postID }}/delete">
                 <button class="btn btn-outline-danger btn-sm">Delete Post</button>
@@ -81,7 +86,7 @@
 
             <p class="text-light mt-2">{{ comment.nods | length }} Nods</p>
 
-            {% if current_user.role == 'Admin' %}
+            {% if current_user.role == 'Admin' or current_user.id == thread.creatorID or current_user.id == post.creatorID or current_user.id == comment.commenterID %}
             <form method="POST" action="/comment/{{ comment.commentID }}/delete" class="mt-2">
                 <button class="btn btn-sm btn-outline-danger">Delete Comment</button>
             </form>
