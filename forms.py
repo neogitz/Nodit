@@ -76,10 +76,11 @@ class CreatePostForm(FlaskForm):
 
 
 class PostCommentForm(FlaskForm):
-    text = TextAreaField("Comment", validators=[DataRequired(), length(max=1000)])
+    text = TextAreaField("Comment", validators=[DataRequired(), Length(max=1000)])
     img = FileField("Upload Image", validators=[Optional(), FileAllowed(["jpg", "jpeg", "png", "gif"])])
-
+    
     submit = SubmitField("Comment")
+
 
 
 class FeedbackForm(FlaskForm):
