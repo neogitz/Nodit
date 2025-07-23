@@ -26,6 +26,12 @@
 {% if thread.posts %}
 {% for post in thread.posts %}
 <div class="mb-4 p-3 border rounded bg-dark text-light">
+     <div class="d-flex justify-content-between align-items-center mb-2">
+          <a href="/profile/{{ comment.commenter.id }}" class="text-reset text-decoration-none">
+               <strong>{{ post.creator.username }}</strong>
+          </a>
+          <small class="text-muted">{{ post.date.strftime('%b %d, %Y') }}</small>
+     </div>      
     <p class="fw-bold fs-5"><a href="{{ url_for('view_post', thread_id=post.threadID, post_id=post.postID) }}"
                                class="text-decoration-none text-light fw-bold">
         {{ post.title }}
@@ -37,7 +43,7 @@
          style="max-height: 300px;" alt="Post image">
     {% endif %}
 
-    <small>by {{ post.creator.username }} on {{ post.date }}</small><br>
+
 
     <form method="POST" action="/nod">
         <input type="hidden" name="post_id" value="{{ post.postID }}">
@@ -67,12 +73,7 @@
         <strong>Comments:</strong>
         {% for comment in post.comments %}     
         <div class="border p-2 mt-2 rounded bg-dark text-white">
-             <div class="d-flex justify-content-between align-items-center mb-2">
-                  <a href="/profile/{{ comment.commenter.id }}" class="text-reset text-decoration-none">
-                       <strong>{{ comment.commenter.username }}</strong>
-                  </a>
-                  <small class="text-muted">{{ comment.date.strftime('%b %d, %Y') }}</small>
-             </div>                 
+                
             <p>{{ comment.text }}</p>
 
             {% if comment.img %}
