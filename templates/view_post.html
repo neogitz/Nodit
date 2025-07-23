@@ -1,33 +1,92 @@
-{% for comment in comments %}
-<div class="list-group-item comment-item shadow-lg mb-3 bg-dark rounded text-white p-3">
-    <div class="d-flex justify-content-between align-items-center mb-2">
-        <a href="/profile/{{ comment.commenter.id }}" class="text-reset text-decoration-none">
-            <strong>{{ comment.commenter.username }}</strong>
-        </a>
-        <div class="d-flex align-items-center">
-            <small class="text-muted me-2">{{ comment.date.strftime('%b %d, %Y') }}</small>
-            {% if current_user.is_admin %}
-            <form method="POST" action="/delete_comment" class="ms-2">
-                <input type="hidden" name="comment_id" value="{{ comment.commentID }}">
-                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="post-container bg-dark rounded-lg shadow-lg p-4">
+        <h3 class="text-center text-light mb-3">{{ post.title }}</h3>
+        <p class="text-center text-light">{{ post.text }}</p>
+
+        {% if post.img %}
+        <div class="text-center">
+            <img src="{{ url_for('static', filename='uploads/' ~ post.img) }}" class="img-fluid rounded mb-3"
+                 style="max-height: 300px;" alt="Post Image">
+        </div>
+        {% endif %}
+
+        <div class="text-center mt-3 mb-4">
+            <a href="/profile/{{ post.creator.id }}" class="text-reset text-decoration-none">
+                <i class="bi bi-person"></i> <strong>{{ post.creator.username }}</strong>
+            </a>
+        </div>
+
+        <div class="text-center mt-3">
+            <form method="POST" action="/nod">
+                <input type="hidden" name="post_id" value="{{ post.postID }}">
+                <button type="submit" class="btn btn-outline-light p-0 border-0" style="width: 40px; height: 40px;">
+                    <img src="/static/emojinodit.png" alt="Nodding Emoji" class="w-100 h-100"
+                         style="object-fit: contain;">
+                </button>
             </form>
-            {% endif %}
+            <p class="text-light mt-2">{{ post.nods | length }} Nods</p>
+        </div>
+
+        {% if current_user.id == post.creator.id or current_user.is_admin or current_user.id == post.thread.creator.id %}
+        <div class="text-center mt-3">
+            <form method="POST" action="/delete_post">
+                <input type="hidden" name="post_id" value="{{ post.postID }}">
+                <button type="submit" class="btn btn-danger">Delete Post</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+    <hr class="text-light">
+
+    <div class="comments-section mt-5">
+        <h4 class="text-center text-light mb-4">Comments</h4>
+
+        {% if comments %}
+        <div class="list-group">
+            {% for comment in comments %}
+            <div class="list-group-item comment-item shadow-lg mb-3 bg-dark rounded text-white p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <a href="/profile/{{ comment.commenter.id }}" class="text-reset text-decoration-none">
+                        <strong>{{ comment.commenter.username }}</strong>
+                    </a>
+                    <small class="text-muted">{{ comment.date.strftime('%b %d, %Y') }}</small>
+                </div>
+                <p class="mt-2">{{ comment.text }}</p>
+
+                {% if comment.img %}
+                <img src="{{ url_for('static', filename='uploads/' ~ comment.img) }}" class="img-fluid rounded mb-2"
+                     style="max-height: 200px;" alt="Comment Image">
+                {% endif %}
+
+                <form method="POST" action="/nod">
+                    <input type="hidden" name="comment_id" value="{{ comment.commentID }}">
+                    <button type="submit" class="btn btn-outline-light p-0 border-0" style="width: 40px; height: 40px;">
+                        <img src="/static/emojinodit.png" alt="Nodding Emoji" class="w-100 h-100"
+                             style="object-fit: contain;">
+                    </button>
+                </form>
+                <p class="text-light mt-2">{{ comment.nods | length }} Nods</p>
+
+                {% if current_user.id == comment.commenter.id or current_user.id == post.creator.id or current_user.is_admin or current_user.id == post.thread.creator.id %}
+                <form method="POST" action="/delete_comment">
+                    <input type="hidden" name="comment_id" value="{{ comment.commentID }}">
+                    <button type="submit" class="btn btn-danger btn-sm mt-2">Delete Comment</button>
+                </form>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-center text-light">No comments yet. Be the first to comment!</p>
+        {% endif %}
+
+        <div class="text-center mt-4">
+            <a href="/comment/{{ post.postID }}" class="btn btn-outline-light">Add Comment</a>
         </div>
     </div>
-    <p class="mt-2">{{ comment.text }}</p>
-
-    {% if comment.img %}
-    <img src="{{ url_for('static', filename='uploads/' ~ comment.img) }}" class="img-fluid rounded mb-2"
-         style="max-height: 200px;" alt="Comment Image">
-    {% endif %}
-
-    <form method="POST" action="/nod">
-        <input type="hidden" name="comment_id" value="{{ comment.commentID }}">
-        <button type="submit" class="btn btn-outline-light p-0 border-0" style="width: 40px; height: 40px;">
-            <img src="/static/emojinodit.png" alt="Nodding Emoji" class="w-100 h-100"
-                 style="object-fit: contain;">
-        </button>
-    </form>
-    <p class="text-light mt-2">{{ comment.nods | length }} Nods</p>
 </div>
-{% endfor %}
+{% endblock %}
